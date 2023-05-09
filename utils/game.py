@@ -54,7 +54,7 @@ class HangMan:
 
     def well_played(self):
         print(
-            f"You found the word: {self.word_to_find} in {self.turn_count} turns with {self.error_count} errors!`"
+            f"You found the word: {self.word_to_find} in {self.turn_count} turns with {self.error_count} errors!"
         )
 
     def start_game(self):
