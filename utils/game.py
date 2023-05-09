@@ -32,11 +32,19 @@ class HangMan:
             char = input(f"Please Enter one letter\n")
             if char.isalpha() == True and len(char) == 1:  # checking if entry is valid
                 if char in self.word_to_find:  # condition when character is found
-                    for i in range(len(self.word_to_find)):
-                        if self.word_to_find[i] == char:
-                            self.correctly_guessed_letters[i] = char  # adding letter
-                    self.turn_count += 1
-                    break
+                    if (
+                        char not in self.correctly_guessed_letters
+                    ):  # check if char already in the guessed letters list
+                        for i in range(len(self.word_to_find)):
+                            if self.word_to_find[i] == char:
+                                self.correctly_guessed_letters[
+                                    i
+                                ] = char  # adding letter
+                        self.turn_count += 1
+                        break
+                    else:
+                        print("You have already Entered that letter!")
+                        break
 
                 else:  # condition when there is no match
                     self.wrongly_guessed_letters.append(char)
