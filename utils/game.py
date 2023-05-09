@@ -6,7 +6,7 @@ class HangMan:
     """This is the Main Class for The HangMan game"""
 
     def __init__(self):
-        self.possiblewords = [
+        self.possiblewords: list[str] = [
             "becode",
             "learning",
             "mathematics",
@@ -20,7 +20,7 @@ class HangMan:
             "windy",
             "beautiful",
         ]
-        self.word_to_find = random.choice(self.possiblewords).lower()
+        self.word_to_find: list = list(random.choice(self.possiblewords).lower())
         self.lives = 5
         self.correctly_guessed_letters = list("_" * len(self.word_to_find))
         self.wrongly_guessed_letters = []
@@ -47,11 +47,17 @@ class HangMan:
                         break
 
                 else:  # condition when there is no match
-                    self.wrongly_guessed_letters.append(char)
-                    self.error_count += 1
-                    self.lives -= 1
-                    self.turn_count += 1
-                    break
+                    if char not in self.wrongly_guessed_letters:
+                        self.wrongly_guessed_letters.append(char)
+                        self.error_count += 1
+                        self.lives -= 1
+                        self.turn_count += 1
+                        break
+                    else:
+                        print(
+                            "For REAAALL! you have already made that error,i'll give you another chance!"
+                        )
+                        break
 
             else:  # If entry were invalid print and reloop
                 print(f"Please only one character is acceptable")
@@ -62,7 +68,7 @@ class HangMan:
 
     def well_played(self):
         print(
-            f"You found the word: {self.word_to_find} in {self.turn_count} turns with {self.error_count} errors!"
+            f"You found the word: {''.join(self.word_to_find)} in {self.turn_count} turns with {self.error_count} errors!"
         )
 
     def start_game(self):
@@ -71,7 +77,7 @@ class HangMan:
             if self.lives == 0:
                 self.game_over()
                 break
-            elif self.correctly_guessed_letters == list(self.word_to_find):
+            elif self.correctly_guessed_letters == self.word_to_find:
                 self.well_played()
                 break
             else:
