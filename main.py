@@ -1,6 +1,6 @@
 import typing
+from utils.game import HangMan
+#from utils import game
 
-from utils import game
-
-item = game.HangMan()
+item = HangMan()
 item.start_game()

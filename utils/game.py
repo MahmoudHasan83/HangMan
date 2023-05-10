@@ -10,25 +10,27 @@ class HangMan:
 
     """
 
+    possiblewords: list[str] = [
+        "becode",
+        "learning",
+        "mathematics",
+        "sessions",
+        "chess",
+        "book",
+        "artificial",
+        "Machine",
+        "computer",
+        "sunny",
+        "windy",
+        "beautiful",
+    ]
+
     def __init__(self):
         """This is the initiation special method for the Hangman object"""
-        self.possiblewords: list[str] = [
-            "becode",
-            "learning",
-            "mathematics",
-            "sessions",
-            "chess",
-            "book",
-            "artificial",
-            "Machine",
-            "computer",
-            "sunny",
-            "windy",
-            "beautiful",
-        ]
-        self.word_to_find: list[str] = list(random.choice(self.possiblewords).lower())
+
+        self.word_to_find: list[str] = list(random.choice(HangMan.possiblewords).lower())
         self.lives: int = 5
-        self.correctly_guessed_letters: list[str] = list("_" * len(self.word_to_find))
+        self.correctly_guessed_letters: list[str] = ["_"] * len(self.word_to_find)
         self.wrongly_guessed_letters: list[str] = []
         self.error_count: int = 0
         self.turn_count: int = 1
@@ -36,18 +38,18 @@ class HangMan:
     def play(self):
         """this is the play() function which is the main
         brain for decision making in the game."""
+        # another way is
+        # guess = input("Enter a letter: ").lower() 
+        # while not guess.isalpha() or len(guess) != 1:
+        #   guess = input("Etner a letter: ").lower() 
         while True:
             char = input(f"Please Enter one letter\n")
             if char.isalpha() == True and len(char) == 1:  # checking if entry is valid
                 if char in self.word_to_find:  # condition when character is found
-                    if (
-                        char not in self.correctly_guessed_letters
-                    ):  # check if char already in the guessed letters list
-                        for i in range(len(self.word_to_find)):
-                            if self.word_to_find[i] == char:
-                                self.correctly_guessed_letters[
-                                    i
-                                ] = char  # adding letter
+                    if (char not in self.correctly_guessed_letters):  # check if char already in the guessed letters list
+                        for i, value in enumerate(self.word_to_find):
+                            if value == char:
+                                self.correctly_guessed_letters[i] = char  # adding letter
                         self.turn_count += 1
                         break
                     else:
@@ -74,11 +76,13 @@ class HangMan:
     def game_over(self):
         """This method is called when you have no
         lives anymore and the game terminates"""
+
         print("Sorry you couldnt find the word")
 
     def well_played(self):
         """This method is called when you guess the
         whole words"""
+
         print(
             f"You found the word: {''.join(self.word_to_find)} in {self.turn_count} turns with {self.error_count} errors!"
         )
@@ -88,7 +92,7 @@ class HangMan:
         control the output after the provoking of
         play() function"""
 
-        print(*self.correctly_guessed_letters)
+        print(", ".join(self.correctly_guessed_letters))
         while True:
             self.play()
             if self.lives == 0:
@@ -98,8 +102,9 @@ class HangMan:
                 self.well_played()
                 break
             else:
-                print(*self.correctly_guessed_letters)
-                print(" ".join(self.wrongly_guessed_letters))
+                print(", ".join(self.correctly_guessed_letters))
+                print(f"""wrong letters  {",".join(self.wrongly_guessed_letters)}""")
                 print(f"You are left with {self.lives} lives")
                 print(f"You have made {self.error_count} Errors")
                 print(f"This is the {self.turn_count} turn")
+# if __name__="__main__"
