@@ -3,9 +3,15 @@ import random
 
 
 class HangMan:
-    """This is the Main Class for The HangMan game"""
+    """This is the Main Class for The HangMan game
+    Also it has start_game() which initiates the
+    play() function and control the outcome.
+
+
+    """
 
     def __init__(self):
+        """This is the initiation special method for the Hangman object"""
         self.possiblewords: list[str] = [
             "becode",
             "learning",
@@ -20,14 +26,16 @@ class HangMan:
             "windy",
             "beautiful",
         ]
-        self.word_to_find: list = list(random.choice(self.possiblewords).lower())
-        self.lives = 5
-        self.correctly_guessed_letters = list("_" * len(self.word_to_find))
-        self.wrongly_guessed_letters = []
-        self.error_count = 0
-        self.turn_count = 1
+        self.word_to_find: list[str] = list(random.choice(self.possiblewords).lower())
+        self.lives: int = 5
+        self.correctly_guessed_letters: list[str] = list("_" * len(self.word_to_find))
+        self.wrongly_guessed_letters: list[str] = []
+        self.error_count: int = 0
+        self.turn_count: int = 1
 
     def play(self):
+        """this is the play() function which is the main
+        brain for decision making in the game."""
         while True:
             char = input(f"Please Enter one letter\n")
             if char.isalpha() == True and len(char) == 1:  # checking if entry is valid
@@ -64,14 +72,21 @@ class HangMan:
                 continue
 
     def game_over(self):
+        """This method is called when you have no
+        lives anymore and the game terminates"""
         print("Sorry you couldnt find the word")
 
     def well_played(self):
+        """This method is called when you guess the
+        whole words"""
         print(
             f"You found the word: {''.join(self.word_to_find)} in {self.turn_count} turns with {self.error_count} errors!"
         )
 
     def start_game(self):
+        """The method that starts the game and
+        control the output after the provoking of
+        play() function"""
         while True:
             self.play()
             if self.lives == 0:
