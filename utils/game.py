@@ -87,6 +87,8 @@ class HangMan:
         """The method that starts the game and
         control the output after the provoking of
         play() function"""
+
+        print(*self.correctly_guessed_letters)
         while True:
             self.play()
             if self.lives == 0:
